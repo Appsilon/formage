@@ -495,7 +495,11 @@ $(function () {
             })
             .fail(function (jqXHR) {
                 var ret = jqXHR.responseJSON;
-                window.bootbox.alert("Save failed - " + ret.name + '\n' + ret.fields);
+                var message = "Save failed - " + ret.name + ":<br />";
+                Object.keys(ret.errors).forEach(function(key) {
+                    message += "- " + ret.errors[key].message + "<br />";
+                });
+                window.bootbox.alert(message);
             })
             .always(function () {
                 setTimeout(function () {
